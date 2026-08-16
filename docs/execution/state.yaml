@@ -1,17 +1,17 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 3
+current_stage: 4
 stage_status: PASS
-last_completed_stage: 3
-source_commit: daa47dd0f30bfcf4bef251c0377713aebf942f1f
-working_tree_status: stage-3-complete
+last_completed_stage: 4
+source_commit: 694f69ad85ae21fbc6bc743ac909850f6e8023b5
+working_tree_status: stage-4-complete
 active_protocol: F0-position-state-vs-baselines-v0
 quarantined_data_opened: false
 notes:
   - "S0-S4 PDFs missing; confirmation closed for F0."
-  - "Master-spec resubmission treated as ADVANCE after Stage 2 PASS."
-  - "BS CDF bug found by FD-gamma certificate and fixed; preserved in ADR 0004."
-  - "No waiver. No brokerage."
+  - "Master-spec resubmission treated as ADVANCE after Stage 3 PASS."
+  - "Features are coordinates. F0 not executed."
+  - "No waiver. No brokerage. No geometry."
 stages:
   "0":
     name: reconnaissance
@@ -41,37 +41,44 @@ stages:
     name: position-compiler-valuation
     status: PASS
     gate: PASS
+    artifacts: []
+    tests: []
+    blockers: []
+    limitations: []
+  "4":
+    name: feature-dag-time-semantics
+    status: PASS
+    gate: PASS
     artifacts:
-      - path: src/lib/atlas/position/bs.ts
-        sha256: 2530a682b17cd86c72cc1417c313e4d428e34a482de0f3aa947fe9d2f3d2c45b
-      - path: tests/scientific/stage3-position.test.ts
-        sha256: f26c82cd0f0e89199d01b8693072448a5479f0755728bd2db45eb2c8831298e1
-      - path: docs/adr/0004-position-engine.md
-        sha256: 94e301e4dca3e578deba45991c6bbff5c1581f0b05b115a8947dffcef847e118
-      - path: docs/execution/stage-03-report.md
-        sha256: 3a3fc0b71d41cdb29532f89b5a9c8dddc0313103ff5b557b0afea28d8af874fc
+      - path: src/lib/atlas/features/catalog.ts
+        sha256: a1dc0cce571136b4a8953791526bf3da38e86502042611303632c33fab21afb0
+      - path: src/lib/atlas/features/compute.ts
+        sha256: b11be6bc3a5b7aa1238cd4b91dc1ec0f6438a9d216ac4314517c413d23fd63dc
+      - path: tests/scientific/stage4-features.test.ts
+        sha256: 60718f1e6369e18d680fcc056f6e237d6a8d578a8294a9c01bfae4c2ebfbd512
+      - path: docs/adr/0005-feature-dag.md
+        sha256: 25b921dd478602453a6a008f2f22ebfff06293561fdba8c979383ea40160d294
+      - path: docs/execution/stage-04-report.md
+        sha256: 998b8ed29846ab196d093a312cdb5487ac4203c23f68f6590501e3b7f5dc1733
     tests:
-      - name: leg-order-invariance
+      - name: catalog-metadata
         result: PASS
-      - name: payoff-and-parity
+      - name: no-lookahead
         result: PASS
-      - name: greek-finite-difference
+      - name: weekly-availability
         result: PASS
-        detail: "CDF was wrong on first run; remediating the formula made FD pass"
-      - name: split-payoff-identity
+      - name: missing-not-filled
         result: PASS
-      - name: no-invented-quotes
+      - name: revision-watermark
         result: PASS
-      - name: transport-refuse-and-repro
-        result: PASS
-      - name: encoder-permutation
+      - name: duplicate-formula-and-audit
         result: PASS
     blockers: []
     limitations:
-      - "European BS only. American exercise not implemented."
-      - "Prototype src/lib/pct not bound to this engine."
-  "4":
-    name: feature-dag-time-semantics
+      - "MI not estimated; Spearman used."
+      - "No drop-one family/timeframe ablation runner."
+  "5":
+    name: outcomes-baselines-f0
     status: NOT_STARTED
     gate: null
     artifacts: []
@@ -79,7 +86,7 @@ stages:
     blockers: []
     limitations: []
 next_permitted_actions:
-  - ADVANCE STAGE 4
+  - ADVANCE STAGE 5
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
