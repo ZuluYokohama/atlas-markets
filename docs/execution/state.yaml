@@ -3,48 +3,18 @@ execution_mode: CHECKPOINTED
 current_stage: 13
 stage_status: PASS
 last_completed_stage: 13
-source_commit: f64423f33731e6dbc0a92b3c6f456aa2cb832a22
-working_tree_status: stage-13-complete
+program_status: CLOSED
+close_action: ABORT
+source_commit: 29793097867c97a0f170a31c263b22dae84d6634
+working_tree_status: program-closed
 active_protocol: E4-frozen-utility-v0
 quarantined_data_opened: false
 notes:
-  - "Staged program complete as an analysis product."
-  - "Justified claim: UNSUPPORTED predictive utility. Certified operators, PIT, shadow."
+  - "Program CLOSED via ABORT after Stage 13 PASS."
+  - "Analysis product remains. Predictive claim UNSUPPORTED."
+  - "New work requires a new protocol ID."
   - "No brokerage. Confirmation closed."
-stages:
-  "0": { name: reconnaissance, status: PARTIAL_PASS, gate: PARTIAL_PASS }
-  "1": { name: schemas, status: PASS, gate: PASS }
-  "2": { name: event-store, status: PASS, gate: PASS }
-  "3": { name: position-engine, status: PASS, gate: PASS }
-  "4": { name: feature-dag, status: PASS, gate: PASS }
-  "5": { name: f0, status: PASS, gate: PASS }
-  "6": { name: workstation-ui, status: PASS, gate: PASS }
-  "7": { name: e0, status: PASS, gate: PASS }
-  "8": { name: e1, status: PASS, gate: PASS }
-  "9": { name: e2, status: PASS, gate: PASS }
-  "10": { name: e3, status: PASS, gate: PASS }
-  "11": { name: e4, status: PASS, gate: PASS }
-  "12": { name: e5, status: PASS, gate: PASS }
-  "13":
-    name: product-integration-evidence-ui
-    status: PASS
-    gate: PASS
-    artifacts:
-      - path: src/lib/atlas/ledger/product.ts
-        sha256: 4ae19f7e5223e5bf528bc7294f4c15ecd8db52a9ad19c8855c8ec806e0f1bacc
-      - path: src/routes/evidence.tsx
-        sha256: 34389abf5d3d9552cea634eeb906c7d3dde1402f94eb9993cb68e7306dde0a68
-      - path: docs/adr/0014-evidence-is-the-product.md
-    tests:
-      - name: eight-questions
-        result: PASS
-      - name: no-validated-predictive
-        result: PASS
-    limitations:
-      - "Synthetic universe only."
-      - "S0–S4 source PDFs still missing."
-next_permitted_actions:
-  - ABORT
+next_permitted_actions: []
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
