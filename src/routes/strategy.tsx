@@ -28,6 +28,10 @@ function StrategyPage() {
         <h1 className="mt-1 font-display text-3xl tracking-tight">
           A policy is an automaton.
         </h1>
+        <p className="mt-2 max-w-2xl text-sm text-clay">
+          Prototype automaton inspector. Not an E4 policy. Confirmation closed.
+          No order authority.
+        </p>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Language compiles to typed predicates. The replay engine — not the
           language model — decides whether a transition fired. Click a node to

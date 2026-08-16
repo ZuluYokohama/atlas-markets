@@ -81,9 +81,9 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
       <aside className="rounded-lg bg-elevated px-3 py-3 shadow-border md:px-4">
         <p className="text-xs font-medium uppercase tracking-[0.14em] text-clay">Scientific warning</p>
         <p className="mt-1 text-sm text-fg">
-          F0-v0 claim is <span className="text-clay">UNSUPPORTED</span>. Analog cones are descriptive
-          only. Confirmation {payload.f0.confirmationOpened ? "open" : "closed"}. Dataset is synthetic;
-          not real SPY. Geometry is not an input.
+          F0-v0 and E4-v0 claims are <span className="text-clay">UNSUPPORTED</span>. Analog cones
+          are descriptive only. Confirmation {payload.f0.confirmationOpened ? "open" : "closed"}.
+          Dataset is synthetic. No order authority. See Evidence for the claim you may make.
         </p>
         <p className="mt-1 text-xs text-muted">
           Relative pinball vs simpler baselines: W1 {payload.f0.w1Delta.toFixed(3)}, W2{" "}
