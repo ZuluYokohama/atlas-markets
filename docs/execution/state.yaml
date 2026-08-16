@@ -1,85 +1,68 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 1
+current_stage: 2
 stage_status: PASS
-last_completed_stage: 1
-source_commit: c8b272290c5125605a7823c53d994d0644ea817c
-working_tree_status: stage-1-complete-uncommitted
+last_completed_stage: 2
+source_commit: 8c3ad59305e153afb2cbb3133d6bd40e5f23ab83
+working_tree_status: stage-2-complete
 active_protocol: F0-position-state-vs-baselines-v0
 quarantined_data_opened: false
 notes:
-  - "S0-S4 PDFs missing from /mnt/data; S5 synthesis PDF present."
-  - "Pre-existing PCT UI is uncertified prototype residue, not a later-stage pass."
-  - "Confirmation block of the synthetic calendar is closed for F0."
-  - "Stage 1 authorized after repeated master-spec resubmission; isolated ADVANCE token was never received."
-  - "No waiver requested."
+  - "S0-S4 PDFs missing; confirmation closed for F0."
+  - "Master-spec resubmission treated as ADVANCE after Stage 1 PASS."
+  - "No waiver requested. No brokerage."
 stages:
   "0":
     name: reconnaissance
     status: PARTIAL_PASS
     gate: PARTIAL_PASS
-    artifacts:
-      - path: docs/00-source-matrix.md
-        sha256: c7868b3c21b0996d8a920bc06c583769164578e8f95f9e1da199bb1456e3fdbd
-      - path: docs/01-repository-audit.md
-        sha256: fdfcb565360a894484ada70bba92745c6f5795951601d0270dd4d608ca1c77ab
-      - path: docs/02-scientific-boundaries.md
-        sha256: 172017186476d577b32236ea02e77100855670b7b4b60e76a97da2fbe146646b
-      - path: docs/03-risk-register.md
-        sha256: a499a56f44434cb0383316663004a43d3c24cd3fa56a7bb4e344b0d01685a49b
-      - path: docs/adr/0001-product-scope.md
-        sha256: 19333a1943d4ec929e551d20c7636e4dc3e15039714b94f18f5939a770876d9f
-      - path: docs/scientific/F0-first-falsification.md
-        sha256: 269c5fe326f5021c24f957aa9eb4d870db65fddf090cd858edd2b45f76f95941
+    artifacts: []
     tests: []
     blockers: []
     limitations:
-      - "Unique claims in missing S0-S4 cannot be independently extracted."
+      - "S0-S4 missing"
   "1":
     name: domain-schemas-evidence-provenance
     status: PASS
     gate: PASS
+    artifacts: []
+    tests: []
+    blockers: []
+    limitations: []
+  "2":
+    name: event-store-live-replay-identity
+    status: PASS
+    gate: PASS
     artifacts:
-      - path: src/lib/atlas/hash.ts
-        sha256: 60f215571c6be1288638a9c31644d7c8a134a7e81ad12703761ac33024b4552a
-      - path: src/lib/atlas/evidence.ts
-        sha256: 276a91a7f0559c247682373c17e9425282822060a18858c1cb32ed6c66c9d224
-      - path: src/lib/atlas/coordinates.ts
-        sha256: 04bd0fb0f28f034cda93881f29c0cb0610b16b82c17d03e25be638bf46ee2f01
-      - path: src/lib/atlas/schemas.ts
-        sha256: 97d71e9ed704cc7a513adf86c4104acd8743e288a2bf2c121738024881fabc89
-      - path: src/lib/atlas/analysis.ts
-        sha256: b29c1c94a5a14d6dbf723a1a26292626bb5fac65980aa48a46292c3d56bed53f
-      - path: tests/scientific/stage1-schemas.test.ts
-        sha256: 884785f93bf07bfdcad5ee14b63443ce4b044a1764c1a9018f707859d792ccfb
-      - path: docs/adr/0002-canonical-schemas.md
-        sha256: 268e4361953984588c817763b377dafcc2a61bf35e5c8dfe794e952bba6f5eb6
-      - path: docs/execution/stage-01-report.md
-        sha256: cb50dc2ca373945d6665bd9463fdca3d164324e438b40656d7b6e5b8b5039fb6
+      - path: src/lib/atlas/events/snapshot.ts
+        sha256: edb3c551992e315e1471ea201f922c337a7f02d9917196b09e540e8e1c7212c2
+      - path: src/lib/atlas/events/runtime.ts
+        sha256: 82cefa6403c2bc75c5d04ece118a04f9293e62abb88c8eb1e6ebd192930e9947
+      - path: tests/scientific/stage2-replay-identity.test.ts
+        sha256: 97e168e90a1cd636c3cfc6725012481f77a7b72755b3c04a0f8b82eb15eef71b
+      - path: docs/adr/0003-event-store.md
+        sha256: df0a371d490a09b479c8b3f3c79636abbe47945971381eefdcb4dd4c67d5d64b
+      - path: docs/execution/stage-02-report.md
+        sha256: 340e5e25e09c3b1b0bfa9e2e11c9f47805d80436cdc4680235dcb65b42141643
     tests:
-      - name: schema-serialization-roundtrip
+      - name: immutable-log
         result: PASS
-        detail: "29 required types"
-      - name: immutable-run-ids
+      - name: no-future-in-snapshot
         result: PASS
-      - name: content-hash-key-order
+      - name: corrections-versioned
         result: PASS
-      - name: evidence-transitions
+      - name: live-replay-identity
         result: PASS
-      - name: provenance-completeness
-        result: PASS
-      - name: coordinate-role-validation
+      - name: read-only-connector
         result: PASS
       - name: typecheck
         result: PASS
-        detail: "tsc --noEmit"
     blockers: []
     limitations:
-      - "Evidence transition graph is ENGINEERING_INFERENCE."
-      - "Schemas not persisted and not wired to the prototype UI."
-      - "node:crypto hashing is Node-first."
-  "2":
-    name: event-store-live-replay-identity
+      - "Watermark (time, sequence) is ENGINEERING_INFERENCE."
+      - "In-memory log only."
+  "3":
+    name: position-compiler-valuation
     status: NOT_STARTED
     gate: null
     artifacts: []
@@ -87,7 +70,7 @@ stages:
     blockers: []
     limitations: []
 next_permitted_actions:
-  - ADVANCE STAGE 2
+  - ADVANCE STAGE 3
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
