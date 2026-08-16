@@ -102,6 +102,7 @@ function GeometryPage() {
             ["E1-F", "PASS", "held-out sample"],
             ["E1-G", "FAIL", "no incremental pinball"],
             ["E2", "DETECT", "holonomy vs flat+noise null"],
+            ["E3", "PIT", "no future in graph/scale"],
           ].map(([id, st, note]) => (
             <li key={id} className="flex justify-between gap-2 border-t border-line py-1.5">
               <span>

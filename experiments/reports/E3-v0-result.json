@@ -1,0 +1,15 @@
+{
+  "protocolId": "E3-pit-identifiability-v0",
+  "confirmationOpened": false,
+  "claim": "CERTIFIED_PIT_REPRESENTATION",
+  "checks": [
+    { "name": "deterministic-at-T", "passed": true, "detail": "231bfe99eac6d374" },
+    { "name": "future-nodes-change-graph", "passed": true, "detail": "n_T=35 n_later=55" },
+    { "name": "outcome-shuffle-invariant", "passed": true },
+    { "name": "future-scaling-is-detectable", "passed": true },
+    { "name": "no-confirmation-vertices", "passed": true, "detail": "maxIndex=240" },
+    { "name": "similarity-ablation-changes-edges", "passed": true, "detail": "chrono=34 +knn=42" },
+    { "name": "feature-perturbation-control", "passed": true },
+    { "name": "rolling-graph-grows", "passed": true, "detail": "15→25→35" }
+  ]
+}

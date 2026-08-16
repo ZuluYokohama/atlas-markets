@@ -1,19 +1,19 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 9
+current_stage: 10
 stage_status: PASS
-last_completed_stage: 9
-source_commit: c23e73b5435c3a3c5c679a45abfb4081043a02c9
-working_tree_status: stage-9-complete
-active_protocol: E2-holonomy-null-v0
+last_completed_stage: 10
+source_commit: c4885a7631edbb7a906347d98bb126965fa2f6dc
+working_tree_status: stage-10-complete
+active_protocol: E3-pit-identifiability-v0
 quarantined_data_opened: false
 notes:
-  - "E2 CERTIFIED_DETECTABILITY at L=8, σ=0.08, θ=0.7. Not curvature. Not alpha."
-  - "E1-G and F0 remain UNSUPPORTED. Confirmation closed."
+  - "E3 CERTIFIED_PIT_REPRESENTATION. E4 may run; it is not passed."
+  - "F0 and E1-G remain UNSUPPORTED. Confirmation closed."
   - "No brokerage."
 stages:
   "0": { name: reconnaissance, status: PARTIAL_PASS, gate: PARTIAL_PASS }
-  "1": { name: domain-schemas, status: PASS, gate: PASS }
+  "1": { name: schemas, status: PASS, gate: PASS }
   "2": { name: event-store, status: PASS, gate: PASS }
   "3": { name: position-engine, status: PASS, gate: PASS }
   "4": { name: feature-dag, status: PASS, gate: PASS }
@@ -21,33 +21,30 @@ stages:
   "6": { name: workstation-ui, status: PASS, gate: PASS }
   "7": { name: e0, status: PASS, gate: PASS }
   "8": { name: e1, status: PASS, gate: PASS }
-  "9":
-    name: e2-holonomy-null-calibration
+  "9": { name: e2, status: PASS, gate: PASS }
+  "10":
+    name: e3-pit-identifiability
     status: PASS
     gate: PASS
     artifacts:
-      - path: experiments/reports/E2-v0-result.json
-        sha256: 7395082ea320467221bd19a1dcbadb03e6515d98e0dbbda8368f9f4dcec8fccc
-      - path: src/lib/atlas/geometry/e2.ts
-        sha256: 93ffa9e354dea4c547898728da67a65ef3189b3dc0595d213b657683ba79d2c1
-      - path: docs/adr/0010-e2-detectability.md
+      - path: experiments/reports/E3-v0-result.json
+        sha256: ace030b0b833c016ce4050554838af04dd652ad9882be9da825e8d121049806e
+      - path: src/lib/atlas/geometry/e3.ts
+        sha256: 49c284d733c8aeb8d46a345857705d4fe2ee5c6fdae441cc28e188758898d7cc
+      - path: docs/adr/0011-e3-pit.md
     tests:
-      - name: typeI-and-power
+      - name: pit-suite
         result: PASS
-      - name: det-blind-gauge
-        result: PASS
-      - name: sweep
+      - name: shuffle-and-scale
         result: PASS
     limitations:
-      - "Threshold fixed at calibration σ; small θ is invisible."
-      - "No multi-cycle Bonferroni."
-      - "Detectability ≠ profitability."
-  "10":
-    name: e3-pit-identifiability
+      - "Inductive extension is Nyström-nearest, not a full sheaf pushforward."
+  "11":
+    name: e4-frozen-predictive-utility
     status: NOT_STARTED
     gate: null
 next_permitted_actions:
-  - ADVANCE STAGE 10
+  - ADVANCE STAGE 11
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
