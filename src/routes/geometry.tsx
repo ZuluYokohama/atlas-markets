@@ -42,7 +42,7 @@ function GeometryPage() {
   const e2 = e2HolonomyDemo(0.7, 0.08);
   const tda = useMemo(() => {
     const series = uni.days.map((d) => d.ret1);
-    return slidingPersistence(series.slice(300, 420), 18);
+    return slidingPersistence(series.slice(80, 240), 18);
   }, [uni]);
 
   const spec = bundle.eigenvalues.map((v: number, i: number) => ({
@@ -68,6 +68,10 @@ function GeometryPage() {
         <h1 className="mt-1 font-display text-3xl tracking-tight">
           Connection, gauge, holonomy.
         </h1>
+        <p className="mt-2 max-w-2xl text-sm text-clay">
+          Prototype inspector only. F0 did not earn geometry as a predictive input.
+          Operators here are not CERTIFIED_OPERATOR_IMPLEMENTATION (that is Stage 7).
+        </p>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Pairwise transports are not a cellular sheaf. Cycle holonomy is the
           obstruction that cannot be unwrapped on a spanning tree. Toggle a random

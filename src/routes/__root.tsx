@@ -5,7 +5,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "sonner";
 import appCss from "../styles.css?url";
 
-const APP_NAME = "Terrain — Position Laboratory";
+const APP_NAME = "Atlas Markets — Topological Alpha Workstation";
 const host = import.meta.env.VITE_PUBLIC_HOSTNAME;
 const ogImage = host
   ? `https://og.grok.me/v1/card.png?host=${encodeURIComponent(host)}&title=${encodeURIComponent(APP_NAME)}`
@@ -23,7 +23,7 @@ export const Route = createRootRoute({
       {
         name: "description",
         content:
-          "Gauge-audited position terrain workstation for options entry and exit viability.",
+          "Evidence-aware position and market-state laboratory. Research and simulation only.",
       },
       ...(ogImage
         ? [

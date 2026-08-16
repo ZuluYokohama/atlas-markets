@@ -1,16 +1,16 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 5
+current_stage: 6
 stage_status: PASS
-last_completed_stage: 5
-source_commit: f18c1dbe5cae754a573a6ffdb97fa23bc72fd5af
-working_tree_status: stage-5-complete
+last_completed_stage: 6
+source_commit: 592a92657c382faf4d301d5ad4d02c04caa599b4
+working_tree_status: stage-6-complete
 active_protocol: F0-position-state-vs-baselines-v0
 quarantined_data_opened: false
 notes:
-  - "F0-v0 executed. Predictive claim UNSUPPORTED. Confirmation still closed."
-  - "kNN pinball worse than simpler baselines on W1 and W2. Do not retune."
-  - "Workstation continues as an analysis product. Geometry unearned as alpha."
+  - "F0-v0 predictive claim remains UNSUPPORTED. Confirmation closed."
+  - "Stage 6 is an analysis UI. Geometry is not a predictive input."
+  - "Hash moved to portable SHA-256 so the workstation can load in-browser."
   - "No brokerage."
 stages:
   "0":
@@ -57,32 +57,39 @@ stages:
     name: outcomes-baselines-f0
     status: PASS
     gate: PASS
-    artifacts:
-      - path: experiments/reports/F0-v0-result.json
-        sha256: 26e8eb6fd7e7ab609c8c71cdc0577868868a0d64941e5643e83ce33172b82dd0
-      - path: experiments/reports/F0-v0-result.md
-      - path: src/lib/atlas/eval/f0.ts
-        sha256: 0053e27afada36a582c1976de3deacddaa3633856665a55708fdcee1285ebdf3
-      - path: docs/adr/0006-f0-null.md
-      - path: docs/execution/stage-05-report.md
-        sha256: 981a932bb3f2d1e8f55e4bc960d2c5519a8d0c3e5574dd83f8ba37574167ce9c
-    tests:
-      - name: confirmation-quarantine
-        result: PASS
-      - name: outcome-families
-        result: PASS
-      - name: six-baselines
-        result: PASS
-      - name: f0-v0-execution
-        result: PASS
-        detail: "claim=UNSUPPORTED; confirmationOpened=false"
+    artifacts: []
+    tests: []
     blockers: []
-    limitations:
-      - "Synthetic path only. Not real SPY."
-      - "Single template (long ATM 21d call), 5-session horizon."
-      - "Predictive claim UNSUPPORTED."
+    limitations: ["Predictive claim UNSUPPORTED"]
   "6":
     name: state-atlas-workstation-ui
+    status: PASS
+    gate: PASS
+    artifacts:
+      - path: src/lib/atlas/session/build.ts
+        sha256: 078de62240778e5367cdbdb73619c68c31af5f205c7e0f280c5a3e1ca7e52ada
+      - path: src/components/atlas/workstation.tsx
+      - path: tests/scientific/stage6-replay-ui.test.ts
+        sha256: 8ea5527008f3bd52c3c6b1c44b37aec9c21f2ab81dba64ded6d76dab0d7d2767
+      - path: docs/adr/0007-workstation-ui.md
+      - path: docs/execution/stage-06-report.md
+        sha256: d97da5ce66607df6a3414d8d4993f3da7716f5458fd52cb3d880b5f86f9c6554
+    tests:
+      - name: no-confirmation-in-payload
+        result: PASS
+      - name: analogs-strictly-past
+        result: PASS
+      - name: cone-not-validated
+        result: PASS
+      - name: browser-render
+        result: PASS
+        detail: "desktop and 390px; no page errors after portable hash"
+    blockers: []
+    limitations:
+      - "Prototype /geometry and /strategy remain residue with an honesty banner."
+      - "Strategy ribbon is a heuristic, DESCRIPTIVE only."
+  "7":
+    name: e0-connection-operator-sanity
     status: NOT_STARTED
     gate: null
     artifacts: []
@@ -90,7 +97,7 @@ stages:
     blockers: []
     limitations: []
 next_permitted_actions:
-  - ADVANCE STAGE 6
+  - ADVANCE STAGE 7
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
