@@ -77,6 +77,19 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
     return { k, right: "C", note: "declared-model" };
   });
   const viability = viabilityReadout(frame);
+  const abstainIdx = useMemo(
+    () => payload.frames.filter((f) => viabilityReadout(f).stance === "ABSTAIN").map((f) => f.index),
+    [payload.frames],
+  );
+  const inspectIdx = useMemo(
+    () => payload.frames.filter((f) => viabilityReadout(f).stance === "INSPECT").map((f) => f.index),
+    [payload.frames],
+  );
+
+  function jump(list: number[], dir: 1 | -1) {
+    const next = dir === 1 ? list.find((i) => i > frame.index) : [...list].reverse().find((i) => i < frame.index);
+    if (next != null) setIndex(next);
+  }
 
   return (
     <div className="mx-auto flex max-w-[1600px] flex-col gap-3 px-3 pb-8 pt-3 md:gap-4 md:px-6">
@@ -109,9 +122,24 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
           />
         </div>
         <div className="flex flex-wrap gap-2 tabular text-sm">
+          <span
+            className={cn(
+              "rounded-sm px-2 py-2 text-xs uppercase tracking-widest",
+              viability.stance === "ABSTAIN" ? "bg-elevated text-clay" : "bg-elevated text-sand",
+            )}
+          >
+            {viability.stance}
+          </span>
           <span className="rounded-sm bg-elevated px-2 py-2">{frame.date}</span>
           <span className="rounded-sm bg-elevated px-2 py-2">t={frame.index}</span>
-          <span className="rounded-sm bg-elevated px-2 py-2">{frame.split}</span>
+          <Button
+            type="button"
+            variant="secondary"
+            className="h-11"
+            onClick={() => setIndex((i) => Math.max(payload.minIndex, i - 1))}
+          >
+            Back
+          </Button>
           <Button
             type="button"
             variant="secondary"
@@ -119,6 +147,12 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
             onClick={() => setIndex((i) => Math.min(payload.maxIndex, i + 1))}
           >
             Step
+          </Button>
+          <Button type="button" variant="secondary" className="h-11" onClick={() => jump(abstainIdx, 1)}>
+            Next abstain
+          </Button>
+          <Button type="button" variant="secondary" className="h-11" onClick={() => jump(inspectIdx, 1)}>
+            Next inspect
           </Button>
         </div>
       </div>
