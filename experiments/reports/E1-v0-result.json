@@ -1,0 +1,90 @@
+{
+  "protocolId": "E1-connection-spectral-v0",
+  "confirmationOpened": false,
+  "subgates": [
+    {
+      "id": "E1-A",
+      "status": "PASS",
+      "detail": "planted low-mode signal; connection basis is the oracle",
+      "numbers": {
+        "dClean": 1.7845345876368064e-31,
+        "dConn": 0.00588595978079392,
+        "dDct": 0.02221064697235692
+      }
+    },
+    {
+      "id": "E1-B",
+      "status": "PASS",
+      "detail": "gauge-fair reconstruction MSE at k=4",
+      "numbers": {
+        "dConn": 0.00588595978079392,
+        "dDct": 0.02221064697235692,
+        "dGauge": 0.02221064697235692,
+        "dGft": 0.008430522997222788,
+        "dPca": 0.12413575974108,
+        "dRand": 0.10758600959037184
+      }
+    },
+    {
+      "id": "E1-C",
+      "status": "PASS",
+      "detail": "true connection vs shuffled transports / random graph",
+      "numbers": {
+        "dConn": 0.00588595978079392,
+        "dShuf": 0.11568158149354914,
+        "dChrono": 0.00588595978079392,
+        "dRandomGraph": 0.008320210198837023
+      }
+    },
+    {
+      "id": "E1-D",
+      "status": "PASS",
+      "detail": "MSE rises with transport/signal noise",
+      "numbers": {
+        "n0": 1.7845345876368064e-31,
+        "n0.05": 0.0024651176768693945,
+        "n0.15": 0.025352766878882396,
+        "n0.4": 0.15137380261249622
+      }
+    },
+    {
+      "id": "E1-E",
+      "status": "PASS",
+      "detail": "equal k is not equal bitrate",
+      "numbers": {
+        "k": 4,
+        "coeffBytes": 32,
+        "basisBytes": 768,
+        "graphBytes": 176,
+        "transportBytes": 352,
+        "connBits": 1328,
+        "dctBits": 32
+      }
+    },
+    {
+      "id": "E1-F",
+      "status": "PASS",
+      "detail": "graph/transports frozen; new sample reconstructed",
+      "numbers": {
+        "dConnTest": 0.002123639530832556,
+        "dPcaTest": 0.10158659805605812
+      }
+    },
+    {
+      "id": "E1-G",
+      "status": "FAIL",
+      "detail": "incremental pinball vs feature-only kNN; confirmation closed",
+      "numbers": {
+        "w1Knn": 248.91023405324955,
+        "w1Conn": 249.0955874932799,
+        "w1Delta": -0.0007446597796003104,
+        "w2Knn": 179.7987796936291,
+        "w2Conn": 181.57779499240203,
+        "w2Delta": -0.00989447927179666
+      }
+    }
+  ],
+  "oracleStatus": "CERTIFIED_SYNTHETIC_ORACLE",
+  "predictiveAuthorization": false,
+  "e1gClaim": "UNSUPPORTED"
+}

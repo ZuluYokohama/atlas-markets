@@ -85,8 +85,31 @@ function GeometryPage() {
           ))}
         </ul>
         <p className="mt-3 text-xs text-muted">
-          Status: {e0.status}. Charts below are prototype residue, not E1-G.
+          Status: {e0.status}. E1-A is a synthetic oracle. E1-G is UNSUPPORTED.
         </p>
+        <h2 className="mt-8 font-display text-2xl tracking-tight">E1 matrix (frozen)</h2>
+        <p className="mt-2 max-w-2xl text-sm text-clay">
+          CERTIFIED_SYNTHETIC_ORACLE only. Connection coordinates are not model
+          inputs. E1-G pinball deltas: W1 −0.0007, W2 −0.0099.
+        </p>
+        <ul className="mt-3 space-y-1 text-sm">
+          {[
+            ["E1-A", "PASS", "oracle recon"],
+            ["E1-B", "PASS", "gauge-fair table"],
+            ["E1-C", "PASS", "shuffled transports worse"],
+            ["E1-D", "PASS", "noise sweep"],
+            ["E1-E", "PASS", "equal k ≠ equal bitrate"],
+            ["E1-F", "PASS", "held-out sample"],
+            ["E1-G", "FAIL", "no incremental pinball"],
+          ].map(([id, st, note]) => (
+            <li key={id} className="flex justify-between gap-2 border-t border-line py-1.5">
+              <span>
+                {id} · {note}
+              </span>
+              <span className={st === "FAIL" ? "text-clay" : "text-ink"}>{st}</span>
+            </li>
+          ))}
+        </ul>
         <h2 className="mt-8 font-display text-2xl tracking-tight">
           Prototype residue
         </h2>

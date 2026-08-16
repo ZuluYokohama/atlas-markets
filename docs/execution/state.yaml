@@ -1,85 +1,52 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 7
+current_stage: 8
 stage_status: PASS
-last_completed_stage: 7
-source_commit: 580778cef4bf0795b3af56206d25b42cd57eb74b
-working_tree_status: stage-7-complete
-active_protocol: F0-position-state-vs-baselines-v0
+last_completed_stage: 8
+source_commit: 13a3eff150a9505eaea79336812e7535a2c45d65
+working_tree_status: stage-8-complete
+active_protocol: E1-connection-spectral-v0
 quarantined_data_opened: false
 notes:
-  - "E0 = CERTIFIED_OPERATOR_IMPLEMENTATION only. Not E1, not alpha."
-  - "F0-v0 predictive claim remains UNSUPPORTED. Confirmation closed."
+  - "E1-A CERTIFIED_SYNTHETIC_ORACLE. E1-G UNSUPPORTED. No predictive authorization."
+  - "F0 remains UNSUPPORTED. Confirmation closed."
   - "No brokerage."
 stages:
-  "0":
-    name: reconnaissance
-    status: PARTIAL_PASS
-    gate: PARTIAL_PASS
-    artifacts: []
-    tests: []
-    blockers: []
-    limitations: ["S0-S4 missing"]
-  "1":
-    name: domain-schemas-evidence-provenance
-    status: PASS
-    gate: PASS
-  "2":
-    name: event-store-live-replay-identity
-    status: PASS
-    gate: PASS
-  "3":
-    name: position-compiler-valuation
-    status: PASS
-    gate: PASS
-  "4":
-    name: feature-dag-time-semantics
-    status: PASS
-    gate: PASS
-  "5":
-    name: outcomes-baselines-f0
-    status: PASS
-    gate: PASS
-    limitations: ["Predictive claim UNSUPPORTED"]
-  "6":
-    name: state-atlas-workstation-ui
-    status: PASS
-    gate: PASS
-  "7":
-    name: e0-connection-operator-sanity
+  "0": { name: reconnaissance, status: PARTIAL_PASS, gate: PARTIAL_PASS }
+  "1": { name: domain-schemas-evidence-provenance, status: PASS, gate: PASS }
+  "2": { name: event-store-live-replay-identity, status: PASS, gate: PASS }
+  "3": { name: position-compiler-valuation, status: PASS, gate: PASS }
+  "4": { name: feature-dag-time-semantics, status: PASS, gate: PASS }
+  "5": { name: outcomes-baselines-f0, status: PASS, gate: PASS }
+  "6": { name: state-atlas-workstation-ui, status: PASS, gate: PASS }
+  "7": { name: e0-connection-operator-sanity, status: PASS, gate: PASS }
+  "8":
+    name: e1-connection-spectral-compression
     status: PASS
     gate: PASS
     artifacts:
-      - path: src/lib/atlas/geometry/connection.ts
-        sha256: ae20c3433ab7750243e483c8c92a478a3b0d787dbb6b02103b92fd833f7603f7
-      - path: src/lib/atlas/geometry/certificates.ts
-        sha256: 4831eaf167dfb2c441db02d760900fb47d13540483ab00fb298f15b8cb1b4e23
-      - path: tests/scientific/stage7-e0.test.ts
-        sha256: 91be6c3bec8871a6dc93ab1f9a1ccedfa7acb83d38c69f75b8d137b54c52fa90
-      - path: docs/adr/0008-e0-operators.md
-      - path: docs/execution/stage-07-report.md
-        sha256: c6597484213d56ae0d10bb7967a24def36cb1ef5f9afbd6974be9047f8c9625d
+      - path: experiments/reports/E1-v0-result.json
+        sha256: 95d528ab64624e756aa40143411d0b9709e4cd75a110ee6f10196b9d1ac40d58
+      - path: src/lib/atlas/geometry/e1.ts
+        sha256: 8b3989fa63e02b41ad9e7dfa0df1ac218e86bb0c4b85d2fac25bc6f2f956a608
+      - path: docs/adr/0009-e1-oracle.md
+      - path: docs/execution/stage-08-report.md
     tests:
-      - name: e0-certificate-suite
+      - name: e1a-oracle
         result: PASS
-      - name: no-outcome-edges
-        result: PASS
-      - name: det-blind-so2
-        result: PASS
+      - name: e1g-incremental
+        result: FAIL
+        detail: "claim=UNSUPPORTED; authorization=false"
     blockers: []
     limitations:
-      - "Dense Jacobi, not a sparse production eigensolver."
-      - "Does not authorize connection coordinates as model inputs (E1-G)."
-  "8":
-    name: e1-connection-spectral-compression
+      - "Flat path world makes gauge-unwrap identical to raw DCT."
+      - "E1-G Nyström embedding is a nearest-train-vertex copy, not a full inductive connection."
+  "9":
+    name: e2-holonomy-null-calibration
     status: NOT_STARTED
     gate: null
-    artifacts: []
-    tests: []
-    blockers: []
-    limitations: []
 next_permitted_actions:
-  - ADVANCE STAGE 8
+  - ADVANCE STAGE 9
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
