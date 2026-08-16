@@ -2,8 +2,7 @@
 
 **Protocol ID:** `F0-position-state-vs-baselines-v0`  
 **Registered:** Stage 0 / 2026-08-16  
-**Status:** `OUT_OF_SCOPE` until Stage 5  
-**Confirmation block:** **CLOSED**
+**Status:** executed in Stage 5. Predictive claim **UNSUPPORTED**. Confirmation still **CLOSED**.
 
 This is the smallest experiment that can falsify the claim that a point-in-time position-conditioned state representation contains measurable information **before** graph/sheaf development is treated as predictive.
 

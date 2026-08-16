@@ -6,3 +6,4 @@ export * from "./analysis.ts";
 export * from "./events/index.ts";
 export * from "./position/index.ts";
 export * from "./features/index.ts";
+export * from "./eval/index.ts";

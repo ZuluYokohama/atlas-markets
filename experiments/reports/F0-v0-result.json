@@ -1,0 +1,39 @@
+{
+  "protocolId": "F0-position-state-vs-baselines-v0",
+  "seed": 1375182877,
+  "confirmationOpened": false,
+  "windows": [
+    {
+      "window": "W1",
+      "n": 81,
+      "pinball": {
+        "unconditional": 202.76056646271894,
+        "regime": 232.91861344584285,
+        "knn": 248.91023405324955,
+        "kernel": 266.74931955204573,
+        "ridge": 308.1322973491877,
+        "tree": 225.29927567414413
+      },
+      "coverageKnn": 0.3950617283950617,
+      "lowNeffFrac": 0,
+      "deltaVsBestSimple": -0.22760672055537995
+    },
+    {
+      "window": "W2",
+      "n": 71,
+      "pinball": {
+        "unconditional": 175.9215334368446,
+        "regime": 170.85816661811126,
+        "knn": 179.7987796936291,
+        "kernel": 173.7171691005989,
+        "ridge": 174.93954335158944,
+        "tree": 177.99408554053124
+      },
+      "coverageKnn": 0.6619718309859155,
+      "lowNeffFrac": 0,
+      "deltaVsBestSimple": -0.052327689407443936
+    }
+  ],
+  "claim": "UNSUPPORTED",
+  "reason": "no improvement vs B1/B2 W1=-0.2276 W2=-0.0523"
+}
