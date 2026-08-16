@@ -4,6 +4,7 @@ current_stage: 0
 stage_status: PARTIAL_PASS
 last_completed_stage: 0
 source_commit: c8b272290c5125605a7823c53d994d0644ea817c
+state_commit: 2d62a351d73c538e2f2832ba4d60e146ae155e91
 working_tree_status: clean-after-stage-0-commit
 active_protocol: F0-position-state-vs-baselines-v0
 quarantined_data_opened: false
@@ -12,30 +13,39 @@ notes:
   - "Pre-existing PCT UI is uncertified prototype residue, not a later-stage pass."
   - "Confirmation block of the synthetic calendar is closed for F0; the running demo's default query 402 is contaminated and must not be cited."
   - "No waiver requested."
+  - "Git was initialized at the end of Stage 0 for provenance only."
 stages:
   "0":
     name: reconnaissance
     status: PARTIAL_PASS
     gate: PARTIAL_PASS
     artifacts:
-      - docs/00-source-matrix.md
-      - docs/01-repository-audit.md
-      - docs/02-scientific-boundaries.md
-      - docs/03-risk-register.md
-      - docs/adr/0001-product-scope.md
-      - docs/scientific/F0-first-falsification.md
-      - docs/execution/state.yaml
-      - docs/execution/stage-00-report.md
+      - path: docs/00-source-matrix.md
+        sha256: c7868b3c21b0996d8a920bc06c583769164578e8f95f9e1da199bb1456e3fdbd
+      - path: docs/01-repository-audit.md
+        sha256: fdfcb565360a894484ada70bba92745c6f5795951601d0270dd4d608ca1c77ab
+      - path: docs/02-scientific-boundaries.md
+        sha256: 172017186476d577b32236ea02e77100855670b7b4b60e76a97da2fbe146646b
+      - path: docs/03-risk-register.md
+        sha256: a499a56f44434cb0383316663004a43d3c24cd3fa56a7bb4e344b0d01685a49b
+      - path: docs/adr/0001-product-scope.md
+        sha256: 19333a1943d4ec929e551d20c7636e4dc3e15039714b94f18f5939a770876d9f
+      - path: docs/scientific/F0-first-falsification.md
+        sha256: 269c5fe326f5021c24f957aa9eb4d870db65fddf090cd858edd2b45f76f95941
+      - path: docs/execution/stage-00-report.md
+        sha256: 1fe6bd6c12433ffe779e40f66e936258e02352302ef4bd23644c5f17adc32c6f
+      - path: attachments/Position Terrain _ Topological Alpha Workstation_ A Gauge-Audited Algorithm and Software Architectur.pdf
+        sha256: 29fa400237b8ecd38e24652b496ad953e1bd2af3f8eb5c01df0bf5ae9956206b
     tests:
       - name: source-pdf-presence
         result: FAIL
         detail: "5/5 declared /mnt/data PDFs absent; 1/1 attached synthesis PDF present"
       - name: repository-installable
         result: PASS
-        detail: "node_modules present; startup.sh present; dev server HTTP 200"
+        detail: "node_modules present; startup.sh present; existing app reachable"
       - name: git-history
         result: FAIL
-        detail: "not a git repository at inspection; init deferred to end of stage"
+        detail: "not a git repository at inspection; initialized after artifacts as c8b2722"
       - name: no-new-later-stage-code
         result: PASS
         detail: "this stage added docs and .gitignore only; pre-existing later-stage code documented as residue"
