@@ -1,16 +1,17 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 2
+current_stage: 3
 stage_status: PASS
-last_completed_stage: 2
-source_commit: 8c3ad59305e153afb2cbb3133d6bd40e5f23ab83
-working_tree_status: stage-2-complete
+last_completed_stage: 3
+source_commit: daa47dd0f30bfcf4bef251c0377713aebf942f1f
+working_tree_status: stage-3-complete
 active_protocol: F0-position-state-vs-baselines-v0
 quarantined_data_opened: false
 notes:
   - "S0-S4 PDFs missing; confirmation closed for F0."
-  - "Master-spec resubmission treated as ADVANCE after Stage 1 PASS."
-  - "No waiver requested. No brokerage."
+  - "Master-spec resubmission treated as ADVANCE after Stage 2 PASS."
+  - "BS CDF bug found by FD-gamma certificate and fixed; preserved in ADR 0004."
+  - "No waiver. No brokerage."
 stages:
   "0":
     name: reconnaissance
@@ -19,8 +20,7 @@ stages:
     artifacts: []
     tests: []
     blockers: []
-    limitations:
-      - "S0-S4 missing"
+    limitations: ["S0-S4 missing"]
   "1":
     name: domain-schemas-evidence-provenance
     status: PASS
@@ -33,36 +33,45 @@ stages:
     name: event-store-live-replay-identity
     status: PASS
     gate: PASS
+    artifacts: []
+    tests: []
+    blockers: []
+    limitations: []
+  "3":
+    name: position-compiler-valuation
+    status: PASS
+    gate: PASS
     artifacts:
-      - path: src/lib/atlas/events/snapshot.ts
-        sha256: edb3c551992e315e1471ea201f922c337a7f02d9917196b09e540e8e1c7212c2
-      - path: src/lib/atlas/events/runtime.ts
-        sha256: 82cefa6403c2bc75c5d04ece118a04f9293e62abb88c8eb1e6ebd192930e9947
-      - path: tests/scientific/stage2-replay-identity.test.ts
-        sha256: 97e168e90a1cd636c3cfc6725012481f77a7b72755b3c04a0f8b82eb15eef71b
-      - path: docs/adr/0003-event-store.md
-        sha256: df0a371d490a09b479c8b3f3c79636abbe47945971381eefdcb4dd4c67d5d64b
-      - path: docs/execution/stage-02-report.md
-        sha256: 340e5e25e09c3b1b0bfa9e2e11c9f47805d80436cdc4680235dcb65b42141643
+      - path: src/lib/atlas/position/bs.ts
+        sha256: 2530a682b17cd86c72cc1417c313e4d428e34a482de0f3aa947fe9d2f3d2c45b
+      - path: tests/scientific/stage3-position.test.ts
+        sha256: f26c82cd0f0e89199d01b8693072448a5479f0755728bd2db45eb2c8831298e1
+      - path: docs/adr/0004-position-engine.md
+        sha256: 94e301e4dca3e578deba45991c6bbff5c1581f0b05b115a8947dffcef847e118
+      - path: docs/execution/stage-03-report.md
+        sha256: 3a3fc0b71d41cdb29532f89b5a9c8dddc0313103ff5b557b0afea28d8af874fc
     tests:
-      - name: immutable-log
+      - name: leg-order-invariance
         result: PASS
-      - name: no-future-in-snapshot
+      - name: payoff-and-parity
         result: PASS
-      - name: corrections-versioned
+      - name: greek-finite-difference
         result: PASS
-      - name: live-replay-identity
+        detail: "CDF was wrong on first run; remediating the formula made FD pass"
+      - name: split-payoff-identity
         result: PASS
-      - name: read-only-connector
+      - name: no-invented-quotes
         result: PASS
-      - name: typecheck
+      - name: transport-refuse-and-repro
+        result: PASS
+      - name: encoder-permutation
         result: PASS
     blockers: []
     limitations:
-      - "Watermark (time, sequence) is ENGINEERING_INFERENCE."
-      - "In-memory log only."
-  "3":
-    name: position-compiler-valuation
+      - "European BS only. American exercise not implemented."
+      - "Prototype src/lib/pct not bound to this engine."
+  "4":
+    name: feature-dag-time-semantics
     status: NOT_STARTED
     gate: null
     artifacts: []
@@ -70,7 +79,7 @@ stages:
     blockers: []
     limitations: []
 next_permitted_actions:
-  - ADVANCE STAGE 3
+  - ADVANCE STAGE 4
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
