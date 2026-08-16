@@ -3,8 +3,8 @@ execution_mode: CHECKPOINTED
 current_stage: 0
 stage_status: PARTIAL_PASS
 last_completed_stage: 0
-source_commit: null
-working_tree_status: stage-0-artifacts-written
+source_commit: c8b272290c5125605a7823c53d994d0644ea817c
+working_tree_status: clean-after-stage-0-commit
 active_protocol: F0-position-state-vs-baselines-v0
 quarantined_data_opened: false
 notes:
