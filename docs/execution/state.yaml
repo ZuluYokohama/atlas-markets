@@ -1,0 +1,71 @@
+project: atlas-markets
+execution_mode: CHECKPOINTED
+current_stage: 0
+stage_status: PARTIAL_PASS
+last_completed_stage: 0
+source_commit: null
+working_tree_status: stage-0-artifacts-written
+active_protocol: F0-position-state-vs-baselines-v0
+quarantined_data_opened: false
+notes:
+  - "S0-S4 PDFs missing from /mnt/data; S5 synthesis PDF present."
+  - "Pre-existing PCT UI is uncertified prototype residue, not a later-stage pass."
+  - "Confirmation block of the synthetic calendar is closed for F0; the running demo's default query 402 is contaminated and must not be cited."
+  - "No waiver requested."
+stages:
+  "0":
+    name: reconnaissance
+    status: PARTIAL_PASS
+    gate: PARTIAL_PASS
+    artifacts:
+      - docs/00-source-matrix.md
+      - docs/01-repository-audit.md
+      - docs/02-scientific-boundaries.md
+      - docs/03-risk-register.md
+      - docs/adr/0001-product-scope.md
+      - docs/scientific/F0-first-falsification.md
+      - docs/execution/state.yaml
+      - docs/execution/stage-00-report.md
+    tests:
+      - name: source-pdf-presence
+        result: FAIL
+        detail: "5/5 declared /mnt/data PDFs absent; 1/1 attached synthesis PDF present"
+      - name: repository-installable
+        result: PASS
+        detail: "node_modules present; startup.sh present; dev server HTTP 200"
+      - name: git-history
+        result: FAIL
+        detail: "not a git repository at inspection; init deferred to end of stage"
+      - name: no-new-later-stage-code
+        result: PASS
+        detail: "this stage added docs and .gitignore only; pre-existing later-stage code documented as residue"
+      - name: market-data-redistribution
+        result: PASS
+        detail: "no licensed raw market data in tree"
+      - name: first-falsification-defined
+        result: PASS
+        detail: "docs/scientific/F0-first-falsification.md registered, not executed"
+    blockers: []
+    limitations:
+      - "Unique claims in missing S0-S4 cannot be independently extracted."
+      - "Source title for S5 and prior PCT code undocumented."
+      - "Existing demo confirmation leak and full-sample geometry are known defects, not accepted gates."
+  "1":
+    name: domain-schemas-evidence-provenance
+    status: NOT_STARTED
+    gate: null
+    artifacts: []
+    tests: []
+    blockers: []
+    limitations: []
+next_permitted_actions:
+  - ADVANCE STAGE 1
+semantic_model_channel:
+  mode: latest_compatible
+  use: development_only
+reproducible_semantic_model:
+  repo_id: null
+  revision: null
+  tokenizer_revision: null
+  quantization: null
+  checksum: null

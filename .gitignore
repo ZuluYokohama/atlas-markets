@@ -1,0 +1,16 @@
+node_modules/
+.tanstack/
+.vercel/
+.output/
+dist/
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+screenshots/
+artifacts/
+*.local
+.pglite/
+data/
+tmp/
