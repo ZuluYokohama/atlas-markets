@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
-import { viabilityReadout } from "../../src/lib/atlas/ledger/viability.ts";
+import { formatSessionNote, viabilityReadout } from "../../src/lib/atlas/ledger/viability.ts";
 
 describe("analysis-lab viability readout", () => {
   it("abstains when OOD or sparse and never emits a trade word", () => {
@@ -21,5 +21,18 @@ describe("analysis-lab viability readout", () => {
     assert.equal(ok.stance, "INSPECT");
     assert.equal(ok.claim, "DESCRIPTIVE");
     assert.ok(!/enter|exit|buy|sell|trade/i.test(ok.reasons.join(" ")));
+  });
+
+  it("formats a research note without trade language", () => {
+    const note = formatSessionNote({
+      date: "2020-01-02",
+      index: 120,
+      ood: false,
+      positionDsl: "long 1x ATM 21d call",
+      cone: { q10: -10, q50: 5, q90: 20, n: 12, nEff: 12, status: "UNSUPPORTED" },
+    });
+    assert.match(note, /DESCRIPTIVE/);
+    assert.match(note, /UNSUPPORTED/);
+    assert.ok(!/buy|sell|place order/i.test(note));
   });
 });

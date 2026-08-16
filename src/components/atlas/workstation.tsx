@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, type KeyboardEvent } from "react";
 import {
   Area,
   AreaChart,
@@ -12,7 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { ReplayFrame, WorkstationPayload } from "@/lib/atlas/session/types";
-import { viabilityReadout } from "@/lib/atlas/ledger/viability";
+import { formatSessionNote, viabilityReadout } from "@/lib/atlas/ledger/viability";
 import { cn } from "@/lib/utils";
 
 function money(n: number | null | undefined): string {
@@ -64,6 +64,7 @@ function Panel({
 export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
   const start = payload.frames.find((f) => f.index === 120) ?? payload.frames[0];
   const [index, setIndex] = useState(start.index);
+  const [copied, setCopied] = useState(false);
   const frame: ReplayFrame = payload.frames.find((f) => f.index === index) ?? payload.frames[0];
   const visible = useMemo(
     () => payload.days.filter((d) => d.index <= frame.index),
@@ -91,6 +92,27 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
     if (next != null) setIndex(next);
   }
 
+  async function copyNote() {
+    try {
+      await navigator.clipboard.writeText(formatSessionNote(frame));
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 1500);
+    } catch {
+      setCopied(false);
+    }
+  }
+
+  function onClockKey(e: KeyboardEvent) {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      setIndex((i) => Math.max(payload.minIndex, i - 1));
+    }
+    if (e.key === "ArrowRight") {
+      e.preventDefault();
+      setIndex((i) => Math.min(payload.maxIndex, i + 1));
+    }
+  }
+
   return (
     <div className="mx-auto flex max-w-[1600px] flex-col gap-3 px-3 pb-8 pt-3 md:gap-4 md:px-6">
       <aside className="rounded-lg bg-elevated px-3 py-3 shadow-border md:px-4">
@@ -106,7 +128,11 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
         </p>
       </aside>
 
-      <div className="flex flex-col gap-3 rounded-lg bg-panel p-3 shadow-border md:flex-row md:items-center md:p-4">
+      <div
+        className="flex flex-col gap-3 rounded-lg bg-panel p-3 shadow-border md:flex-row md:items-center md:p-4"
+        tabIndex={0}
+        onKeyDown={onClockKey}
+      >
         <div className="min-w-0 flex-1">
           <label className="text-xs uppercase tracking-[0.14em] text-muted" htmlFor="replay">
             Replay clock · development only
@@ -153,6 +179,9 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
           </Button>
           <Button type="button" variant="secondary" className="h-11" onClick={() => jump(inspectIdx, 1)}>
             Next inspect
+          </Button>
+          <Button type="button" variant="secondary" className="h-11" onClick={() => void copyNote()}>
+            {copied ? "Copied" : "Copy note"}
           </Button>
         </div>
       </div>

@@ -23,3 +23,17 @@ export function viabilityReadout(frame: Pick<ReplayFrame, "ood" | "cone">): Viab
   if (stance === "INSPECT") reasons.push("cone is an analog picture, not a forecast");
   return { stance, reasons, n, width, claim: "DESCRIPTIVE" };
 }
+
+export function formatSessionNote(
+  frame: Pick<ReplayFrame, "date" | "index" | "ood" | "cone" | "positionDsl">,
+): string {
+  const v = viabilityReadout(frame);
+  const width = v.width == null || Number.isNaN(v.width) ? "n/a" : v.width.toFixed(2);
+  return [
+    "Atlas session note (DESCRIPTIVE — not a forecast, not a ticket)",
+    `date=${frame.date} t=${frame.index} stance=${v.stance} N=${v.n} analogWidth=${width}`,
+    `position=${frame.positionDsl}`,
+    `reasons=${v.reasons.join("; ")}`,
+    "protocol=E4-v0 claim=UNSUPPORTED confirmation=closed orders=none",
+  ].join("\n");
+}
