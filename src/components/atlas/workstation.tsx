@@ -12,6 +12,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { ReplayFrame, WorkstationPayload } from "@/lib/atlas/session/types";
+import { viabilityReadout } from "@/lib/atlas/ledger/viability";
 import { cn } from "@/lib/utils";
 
 function money(n: number | null | undefined): string {
@@ -75,6 +76,7 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
     const k = Math.round(frame.spot * m);
     return { k, right: "C", note: "declared-model" };
   });
+  const viability = viabilityReadout(frame);
 
   return (
     <div className="mx-auto flex max-w-[1600px] flex-col gap-3 px-3 pb-8 pt-3 md:gap-4 md:px-6">
@@ -307,6 +309,26 @@ export function AtlasWorkstation({ payload }: { payload: WorkstationPayload }) {
           )}
           <p className="mt-2 text-xs text-muted">
             Uncertainty is the analog spread, not a validated forecast. Do not read this as a pass.
+          </p>
+        </Panel>
+
+        <Panel
+          title="Entry / exit viability"
+          status={viability.stance === "ABSTAIN" ? "OOD" : "DESCRIPTIVE"}
+          meta="inspection only · never a trade ticket"
+        >
+          <p className="font-display text-2xl tracking-tight">{viability.stance}</p>
+          <ul className="mt-2 list-disc space-y-1 pl-4 text-sm text-muted">
+            {viability.reasons.map((r) => (
+              <li key={r}>{r}</li>
+            ))}
+          </ul>
+          <p className="mt-2 text-xs tabular text-muted">
+            N={viability.n}
+            {viability.width != null ? ` · analog width ${money(viability.width)}` : ""}
+          </p>
+          <p className="mt-2 text-xs text-clay">
+            E4-v0 did not validate this picture. Do not enter, exit, or size from it.
           </p>
         </Panel>
 
