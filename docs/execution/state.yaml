@@ -1,16 +1,15 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 6
+current_stage: 7
 stage_status: PASS
-last_completed_stage: 6
-source_commit: 592a92657c382faf4d301d5ad4d02c04caa599b4
-working_tree_status: stage-6-complete
+last_completed_stage: 7
+source_commit: 580778cef4bf0795b3af56206d25b42cd57eb74b
+working_tree_status: stage-7-complete
 active_protocol: F0-position-state-vs-baselines-v0
 quarantined_data_opened: false
 notes:
+  - "E0 = CERTIFIED_OPERATOR_IMPLEMENTATION only. Not E1, not alpha."
   - "F0-v0 predictive claim remains UNSUPPORTED. Confirmation closed."
-  - "Stage 6 is an analysis UI. Geometry is not a predictive input."
-  - "Hash moved to portable SHA-256 so the workstation can load in-browser."
   - "No brokerage."
 stages:
   "0":
@@ -25,71 +24,54 @@ stages:
     name: domain-schemas-evidence-provenance
     status: PASS
     gate: PASS
-    artifacts: []
-    tests: []
-    blockers: []
-    limitations: []
   "2":
     name: event-store-live-replay-identity
     status: PASS
     gate: PASS
-    artifacts: []
-    tests: []
-    blockers: []
-    limitations: []
   "3":
     name: position-compiler-valuation
     status: PASS
     gate: PASS
-    artifacts: []
-    tests: []
-    blockers: []
-    limitations: []
   "4":
     name: feature-dag-time-semantics
     status: PASS
     gate: PASS
-    artifacts: []
-    tests: []
-    blockers: []
-    limitations: []
   "5":
     name: outcomes-baselines-f0
     status: PASS
     gate: PASS
-    artifacts: []
-    tests: []
-    blockers: []
     limitations: ["Predictive claim UNSUPPORTED"]
   "6":
     name: state-atlas-workstation-ui
     status: PASS
     gate: PASS
-    artifacts:
-      - path: src/lib/atlas/session/build.ts
-        sha256: 078de62240778e5367cdbdb73619c68c31af5f205c7e0f280c5a3e1ca7e52ada
-      - path: src/components/atlas/workstation.tsx
-      - path: tests/scientific/stage6-replay-ui.test.ts
-        sha256: 8ea5527008f3bd52c3c6b1c44b37aec9c21f2ab81dba64ded6d76dab0d7d2767
-      - path: docs/adr/0007-workstation-ui.md
-      - path: docs/execution/stage-06-report.md
-        sha256: d97da5ce66607df6a3414d8d4993f3da7716f5458fd52cb3d880b5f86f9c6554
-    tests:
-      - name: no-confirmation-in-payload
-        result: PASS
-      - name: analogs-strictly-past
-        result: PASS
-      - name: cone-not-validated
-        result: PASS
-      - name: browser-render
-        result: PASS
-        detail: "desktop and 390px; no page errors after portable hash"
-    blockers: []
-    limitations:
-      - "Prototype /geometry and /strategy remain residue with an honesty banner."
-      - "Strategy ribbon is a heuristic, DESCRIPTIVE only."
   "7":
     name: e0-connection-operator-sanity
+    status: PASS
+    gate: PASS
+    artifacts:
+      - path: src/lib/atlas/geometry/connection.ts
+        sha256: ae20c3433ab7750243e483c8c92a478a3b0d787dbb6b02103b92fd833f7603f7
+      - path: src/lib/atlas/geometry/certificates.ts
+        sha256: 4831eaf167dfb2c441db02d760900fb47d13540483ab00fb298f15b8cb1b4e23
+      - path: tests/scientific/stage7-e0.test.ts
+        sha256: 91be6c3bec8871a6dc93ab1f9a1ccedfa7acb83d38c69f75b8d137b54c52fa90
+      - path: docs/adr/0008-e0-operators.md
+      - path: docs/execution/stage-07-report.md
+        sha256: c6597484213d56ae0d10bb7967a24def36cb1ef5f9afbd6974be9047f8c9625d
+    tests:
+      - name: e0-certificate-suite
+        result: PASS
+      - name: no-outcome-edges
+        result: PASS
+      - name: det-blind-so2
+        result: PASS
+    blockers: []
+    limitations:
+      - "Dense Jacobi, not a sparse production eigensolver."
+      - "Does not authorize connection coordinates as model inputs (E1-G)."
+  "8":
+    name: e1-connection-spectral-compression
     status: NOT_STARTED
     gate: null
     artifacts: []
@@ -97,7 +79,7 @@ stages:
     blockers: []
     limitations: []
 next_permitted_actions:
-  - ADVANCE STAGE 7
+  - ADVANCE STAGE 8
 semantic_model_channel:
   mode: latest_compatible
   use: development_only

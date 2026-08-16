@@ -13,6 +13,7 @@ import {
 import { AppShell } from "@/components/app-shell";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { runE0Certificates } from "@/lib/atlas/geometry/certificates";
 import {
   e2HolonomyDemo,
   getConnection,
@@ -27,12 +28,13 @@ export const Route = createFileRoute("/geometry")({
   loader: () => ({
     bundle: getConnection(),
     e1: getE1(),
+    e0: runE0Certificates(),
   }),
   component: GeometryPage,
 });
 
 function GeometryPage() {
-  const { bundle: base, e1 } = Route.useLoaderData();
+  const { bundle: base, e1, e0 } = Route.useLoaderData();
   const uni = getUniverse();
   const [gauged, setGauged] = useState(false);
   const bundle = useMemo(
@@ -66,12 +68,28 @@ function GeometryPage() {
           Geometry inspector
         </p>
         <h1 className="mt-1 font-display text-3xl tracking-tight">
-          Connection, gauge, holonomy.
+          Connection operators (E0)
         </h1>
         <p className="mt-2 max-w-2xl text-sm text-clay">
-          Prototype inspector only. F0 did not earn geometry as a predictive input.
-          Operators here are not CERTIFIED_OPERATOR_IMPLEMENTATION (that is Stage 7).
+          E0 certifies the operators. It does not certify compression, market
+          structure, or alpha. F0 remains UNSUPPORTED. Confirmation is closed.
         </p>
+        <ul className="mt-4 space-y-1 text-sm">
+          {e0.checks.map((c) => (
+            <li key={c.name} className="flex flex-wrap justify-between gap-2 border-t border-line py-1.5">
+              <span>{c.name}</span>
+              <span className={c.passed ? "text-ink" : "text-clay"}>
+                {c.passed ? "certified" : "failed"} · {c.detail}
+              </span>
+            </li>
+          ))}
+        </ul>
+        <p className="mt-3 text-xs text-muted">
+          Status: {e0.status}. Charts below are prototype residue, not E1-G.
+        </p>
+        <h2 className="mt-8 font-display text-2xl tracking-tight">
+          Prototype residue
+        </h2>
         <p className="mt-2 max-w-2xl text-sm text-muted">
           Pairwise transports are not a cellular sheaf. Cycle holonomy is the
           obstruction that cannot be unwrapped on a spanning tree. Toggle a random
