@@ -1,0 +1,18 @@
+{
+  "protocolId": "E2-holonomy-null-v0",
+  "confirmationOpened": false,
+  "threshold": 0.4444661931793559,
+  "typeI": 0.05,
+  "power": 0.88,
+  "detPower": 0.025,
+  "gaugeDelta": 4.440892098500626e-16,
+  "replicationsAgree": true,
+  "claim": "CERTIFIED_DETECTABILITY",
+  "designPoint": { "length": 8, "sigma": 0.08, "theta": 0.7 },
+  "limitations": [
+    "Threshold calibrated at σ=0.08, L=8; θ=0.2 is below threshold (power 0).",
+    "Type I inflates when noise exceeds the calibration σ.",
+    "Single fundamental cycle; no Bonferroni multi-cycle correction.",
+    "Detectability ≠ market curvature or alpha."
+  ]
+}

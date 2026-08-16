@@ -1,52 +1,53 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 8
+current_stage: 9
 stage_status: PASS
-last_completed_stage: 8
-source_commit: 13a3eff150a9505eaea79336812e7535a2c45d65
-working_tree_status: stage-8-complete
-active_protocol: E1-connection-spectral-v0
+last_completed_stage: 9
+source_commit: c23e73b5435c3a3c5c679a45abfb4081043a02c9
+working_tree_status: stage-9-complete
+active_protocol: E2-holonomy-null-v0
 quarantined_data_opened: false
 notes:
-  - "E1-A CERTIFIED_SYNTHETIC_ORACLE. E1-G UNSUPPORTED. No predictive authorization."
-  - "F0 remains UNSUPPORTED. Confirmation closed."
+  - "E2 CERTIFIED_DETECTABILITY at L=8, σ=0.08, θ=0.7. Not curvature. Not alpha."
+  - "E1-G and F0 remain UNSUPPORTED. Confirmation closed."
   - "No brokerage."
 stages:
   "0": { name: reconnaissance, status: PARTIAL_PASS, gate: PARTIAL_PASS }
-  "1": { name: domain-schemas-evidence-provenance, status: PASS, gate: PASS }
-  "2": { name: event-store-live-replay-identity, status: PASS, gate: PASS }
-  "3": { name: position-compiler-valuation, status: PASS, gate: PASS }
-  "4": { name: feature-dag-time-semantics, status: PASS, gate: PASS }
-  "5": { name: outcomes-baselines-f0, status: PASS, gate: PASS }
-  "6": { name: state-atlas-workstation-ui, status: PASS, gate: PASS }
-  "7": { name: e0-connection-operator-sanity, status: PASS, gate: PASS }
-  "8":
-    name: e1-connection-spectral-compression
+  "1": { name: domain-schemas, status: PASS, gate: PASS }
+  "2": { name: event-store, status: PASS, gate: PASS }
+  "3": { name: position-engine, status: PASS, gate: PASS }
+  "4": { name: feature-dag, status: PASS, gate: PASS }
+  "5": { name: f0, status: PASS, gate: PASS }
+  "6": { name: workstation-ui, status: PASS, gate: PASS }
+  "7": { name: e0, status: PASS, gate: PASS }
+  "8": { name: e1, status: PASS, gate: PASS }
+  "9":
+    name: e2-holonomy-null-calibration
     status: PASS
     gate: PASS
     artifacts:
-      - path: experiments/reports/E1-v0-result.json
-        sha256: 95d528ab64624e756aa40143411d0b9709e4cd75a110ee6f10196b9d1ac40d58
-      - path: src/lib/atlas/geometry/e1.ts
-        sha256: 8b3989fa63e02b41ad9e7dfa0df1ac218e86bb0c4b85d2fac25bc6f2f956a608
-      - path: docs/adr/0009-e1-oracle.md
-      - path: docs/execution/stage-08-report.md
+      - path: experiments/reports/E2-v0-result.json
+        sha256: 7395082ea320467221bd19a1dcbadb03e6515d98e0dbbda8368f9f4dcec8fccc
+      - path: src/lib/atlas/geometry/e2.ts
+        sha256: 93ffa9e354dea4c547898728da67a65ef3189b3dc0595d213b657683ba79d2c1
+      - path: docs/adr/0010-e2-detectability.md
     tests:
-      - name: e1a-oracle
+      - name: typeI-and-power
         result: PASS
-      - name: e1g-incremental
-        result: FAIL
-        detail: "claim=UNSUPPORTED; authorization=false"
-    blockers: []
+      - name: det-blind-gauge
+        result: PASS
+      - name: sweep
+        result: PASS
     limitations:
-      - "Flat path world makes gauge-unwrap identical to raw DCT."
-      - "E1-G Nyström embedding is a nearest-train-vertex copy, not a full inductive connection."
-  "9":
-    name: e2-holonomy-null-calibration
+      - "Threshold fixed at calibration σ; small θ is invisible."
+      - "No multi-cycle Bonferroni."
+      - "Detectability ≠ profitability."
+  "10":
+    name: e3-pit-identifiability
     status: NOT_STARTED
     gate: null
 next_permitted_actions:
-  - ADVANCE STAGE 9
+  - ADVANCE STAGE 10
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
