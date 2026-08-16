@@ -1,15 +1,16 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 10
+current_stage: 11
 stage_status: PASS
-last_completed_stage: 10
-source_commit: c4885a7631edbb7a906347d98bb126965fa2f6dc
-working_tree_status: stage-10-complete
-active_protocol: E3-pit-identifiability-v0
+last_completed_stage: 11
+source_commit: 74e63ef51591b1fd32ce64f15b837243a3bba241
+working_tree_status: stage-11-complete
+active_protocol: E4-frozen-utility-v0
 quarantined_data_opened: false
 notes:
-  - "E3 CERTIFIED_PIT_REPRESENTATION. E4 may run; it is not passed."
-  - "F0 and E1-G remain UNSUPPORTED. Confirmation closed."
+  - "E4-v0 UNSUPPORTED. No incremental rung cleared 3% on both windows."
+  - "Neuroevolution not started. Confirmation closed."
+  - "Lab remains an analysis product."
   - "No brokerage."
 stages:
   "0": { name: reconnaissance, status: PARTIAL_PASS, gate: PARTIAL_PASS }
@@ -22,29 +23,33 @@ stages:
   "7": { name: e0, status: PASS, gate: PASS }
   "8": { name: e1, status: PASS, gate: PASS }
   "9": { name: e2, status: PASS, gate: PASS }
-  "10":
-    name: e3-pit-identifiability
+  "10": { name: e3, status: PASS, gate: PASS }
+  "11":
+    name: e4-frozen-predictive-utility
     status: PASS
     gate: PASS
     artifacts:
-      - path: experiments/reports/E3-v0-result.json
-        sha256: ace030b0b833c016ce4050554838af04dd652ad9882be9da825e8d121049806e
-      - path: src/lib/atlas/geometry/e3.ts
-        sha256: 49c284d733c8aeb8d46a345857705d4fe2ee5c6fdae441cc28e188758898d7cc
-      - path: docs/adr/0011-e3-pit.md
+      - path: experiments/reports/E4-v0-result.json
+        sha256: 2e6470c0f6416cb868ec67277c26abe05db20bbeefc8f7c264b75e77282bac1a
+      - path: src/lib/atlas/eval/e4.ts
+        sha256: 9a2970f22a8544fe6218c6dfcdecacdb9eb14acf33f4ff1721419b65abf6ec64
+      - path: docs/adr/0012-e4-null.md
     tests:
-      - name: pit-suite
+      - name: confirmation-closed
         result: PASS
-      - name: shuffle-and-scale
+      - name: trial-ledger
+        result: PASS
+      - name: no-validated-rung
         result: PASS
     limitations:
-      - "Inductive extension is Nyström-nearest, not a full sheaf pushforward."
-  "11":
-    name: e4-frozen-predictive-utility
+      - "TCN/MoE/neuroevolution not run (kill line already failed)."
+      - "Predictive claim UNSUPPORTED for this protocol only."
+  "12":
+    name: e5-shadow-robustness
     status: NOT_STARTED
     gate: null
 next_permitted_actions:
-  - ADVANCE STAGE 11
+  - ADVANCE STAGE 12
 semantic_model_channel:
   mode: latest_compatible
   use: development_only

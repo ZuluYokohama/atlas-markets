@@ -4,3 +4,4 @@ export * from "./metrics.ts";
 export * from "./outcomes.ts";
 export * from "./baselines.ts";
 export * from "./f0.ts";
+export * from "./e4.ts";
