@@ -50,7 +50,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           <div className="hidden items-center gap-1 lg:flex">
             <Badge tone="paper">E0 operator</Badge>
             <Badge tone="clay">F0 unsupported</Badge>
-            <Badge tone="mute">confirm closed</Badge>
+            <Badge tone="mute">shadow · no orders</Badge>
           </div>
           <div className="ml-auto flex items-center gap-2">
             {isPending ? (

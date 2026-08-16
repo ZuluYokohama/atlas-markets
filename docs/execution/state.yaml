@@ -1,16 +1,15 @@
 project: atlas-markets
 execution_mode: CHECKPOINTED
-current_stage: 11
+current_stage: 12
 stage_status: PASS
-last_completed_stage: 11
-source_commit: 74e63ef51591b1fd32ce64f15b837243a3bba241
-working_tree_status: stage-11-complete
-active_protocol: E4-frozen-utility-v0
+last_completed_stage: 12
+source_commit: 944427b20ec1285fc8134059cb267ef8a9151afa
+working_tree_status: stage-12-complete
+active_protocol: E5-shadow-v0
 quarantined_data_opened: false
 notes:
-  - "E4-v0 UNSUPPORTED. No incremental rung cleared 3% on both windows."
-  - "Neuroevolution not started. Confirmation closed."
-  - "Lab remains an analysis product."
+  - "E5 CERTIFIED_SHADOW_FAIL_CLOSED. No order authority."
+  - "E4/F0/E1-G remain UNSUPPORTED. Confirmation closed."
   - "No brokerage."
 stages:
   "0": { name: reconnaissance, status: PARTIAL_PASS, gate: PARTIAL_PASS }
@@ -24,32 +23,32 @@ stages:
   "8": { name: e1, status: PASS, gate: PASS }
   "9": { name: e2, status: PASS, gate: PASS }
   "10": { name: e3, status: PASS, gate: PASS }
-  "11":
-    name: e4-frozen-predictive-utility
+  "11": { name: e4, status: PASS, gate: PASS }
+  "12":
+    name: e5-shadow-robustness
     status: PASS
     gate: PASS
     artifacts:
-      - path: experiments/reports/E4-v0-result.json
-        sha256: 2e6470c0f6416cb868ec67277c26abe05db20bbeefc8f7c264b75e77282bac1a
-      - path: src/lib/atlas/eval/e4.ts
-        sha256: 9a2970f22a8544fe6218c6dfcdecacdb9eb14acf33f4ff1721419b65abf6ec64
-      - path: docs/adr/0012-e4-null.md
+      - path: src/lib/atlas/shadow/engine.ts
+        sha256: c933acb2a9b32eaa39c42f48fe0fcbb74627149c8a5af44afa3007995a8d4f58
+      - path: docs/adr/0013-e5-shadow.md
+      - path: experiments/reports/E5-v0-result.md
     tests:
-      - name: confirmation-closed
+      - name: live-replay-and-no-orders
         result: PASS
-      - name: trial-ledger
+      - name: fail-closed
         result: PASS
-      - name: no-validated-rung
+      - name: ood-abstain
         result: PASS
     limitations:
-      - "TCN/MoE/neuroevolution not run (kill line already failed)."
-      - "Predictive claim UNSUPPORTED for this protocol only."
-  "12":
-    name: e5-shadow-robustness
+      - "Shadow observes synthetic drafts only."
+      - "Does not upgrade E4."
+  "13":
+    name: product-integration-evidence-ui
     status: NOT_STARTED
     gate: null
 next_permitted_actions:
-  - ADVANCE STAGE 12
+  - ADVANCE STAGE 13
 semantic_model_channel:
   mode: latest_compatible
   use: development_only
