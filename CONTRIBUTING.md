@@ -6,7 +6,7 @@ This program is **closed**. New scientific work is a **new protocol ID**, not a 
 
 1. Do not open the confirmation block (indices 315–519) for model selection.  
 2. Do not add brokerage, `placeOrder` success paths, or live send.  
-3. Do not change frozen JSON under `experiments/reports/` to invent a pass.  
+3. Do not modify existing frozen JSON under `experiments/reports/`. New protocols add new report files only.  
 4. Do not label DESCRIPTIVE pictures as VALIDATED.  
 5. A null is a successful experiment. Preserve it.
 

@@ -8,8 +8,8 @@
 
 - [ ] Confirmation block remains closed
 - [ ] No order path / no brokerage
-- [ ] Frozen `experiments/reports/*` unchanged unless this is a new protocol
-- [ ] Evidence labels: EXACT / CERTIFIED / DESCRIPTIVE / VALIDATED / UNSUPPORTED / …
+- [ ] Frozen `experiments/reports/*` unchanged (new protocols add new report files only)
+- [ ] Evidence labels: EXACT / CERTIFIED / DESCRIPTIVE / VALIDATED / UNSUPPORTED
 - [ ] Negative results preserved
 
 ## What the user is justified in claiming after this PR
