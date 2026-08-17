@@ -109,6 +109,7 @@ export function trainLocal(
   const { train, val } = split(all, path.valFraction, path.seed);
   const net = new EssnNet(genome, path.seed);
   let best = Infinity;
+  let bestSnapshot: { hash: string; params: number } | null = null;
   let bad = 0;
   let ran = 0;
   for (let e = 0; e < path.epochs; e++) {
@@ -131,10 +132,11 @@ export function trainLocal(
     const vp = meanPb(net, val, path.taus);
     if (vp + 1e-6 < best) {
       best = vp;
+      bestSnapshot = net.snapshot();
       bad = 0;
     } else if (++bad >= path.earlyStopPatience) break;
   }
-  const snap = net.snapshot();
+  const snap = bestSnapshot ?? net.snapshot();
   const artifact = {
     ...snap,
     path,
@@ -155,7 +157,7 @@ export function trainLocal(
     device: "cpu",
     epochsRan: ran,
     trainPinball: meanPb(net, train, path.taus),
-    valPinball: meanPb(net, val, path.taus),
+    valPinball: best,
     bestVal: best,
     params: snap.params,
     weightHash: snap.hash,

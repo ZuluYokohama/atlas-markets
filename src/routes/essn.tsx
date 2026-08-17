@@ -21,6 +21,14 @@ function EssnPage() {
   const [err, setErr] = useState<string | null>(null);
   const [job, setJob] = useState<Record<string, unknown> | null>(null);
 
+  const isValid =
+    Number.isFinite(epochs) &&
+    epochs > 0 &&
+    Number.isFinite(lr) &&
+    lr > 0 &&
+    Number.isFinite(batch) &&
+    batch > 0;
+
   async function runTrain() {
     setBusy(true);
     setErr(null);
@@ -80,7 +88,10 @@ function EssnPage() {
                 min={1}
                 max={200}
                 value={epochs}
-                onChange={(e) => setEpochs(Number(e.target.value))}
+                onChange={(e) => {
+                  const v = Number(e.target.value);
+                  if (e.target.value !== "" && Number.isFinite(v)) setEpochs(v);
+                }}
               />
             </label>
             <label className="text-sm">
@@ -92,7 +103,10 @@ function EssnPage() {
                 min={0.0001}
                 max={1}
                 value={lr}
-                onChange={(e) => setLr(Number(e.target.value))}
+                onChange={(e) => {
+                  const v = Number(e.target.value);
+                  if (e.target.value !== "" && Number.isFinite(v)) setLr(v);
+                }}
               />
             </label>
             <label className="text-sm">
@@ -103,11 +117,14 @@ function EssnPage() {
                 min={1}
                 max={128}
                 value={batch}
-                onChange={(e) => setBatch(Number(e.target.value))}
+                onChange={(e) => {
+                  const v = Number(e.target.value);
+                  if (e.target.value !== "" && Number.isFinite(v)) setBatch(v);
+                }}
               />
             </label>
           </div>
-          <Button className="mt-4 h-11" disabled={busy} onClick={() => void runTrain()}>
+          <Button className="mt-4 h-11" disabled={busy || !isValid} onClick={() => void runTrain()}>
             {busy ? "Training…" : "Train locally"}
           </Button>
           {err ? <p className="mt-2 text-sm text-clay">{err}</p> : null}

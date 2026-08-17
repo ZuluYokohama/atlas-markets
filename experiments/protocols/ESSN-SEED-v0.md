@@ -1,4 +1,4 @@
-## Local training path (ESSN-TRAIN-v0)
+# Local training path (ESSN-TRAIN-v0)
 
 Weights train on this machine (CPU AdamW). Path parameters: dataset, seed, epochs, batch, lr, weightDecay, gradClip, valFraction, earlyStopPatience.
 

@@ -37,8 +37,19 @@ export const DEFAULT_TRAIN_PATH: TrainPath = {
 export function parseTrainPath(raw: Partial<TrainPath> | null | undefined): TrainPath {
   const p = { ...DEFAULT_TRAIN_PATH, ...(raw ?? {}) };
   if (p.confirmationOpened) throw new Error("CONFIRMATION_CLOSED");
+  if (!Number.isFinite(p.seed) || !Number.isInteger(p.seed)) throw new Error("SEED");
+  if (!Number.isFinite(p.epochs) || !Number.isInteger(p.epochs)) throw new Error("EPOCHS");
   if (p.epochs < 1 || p.epochs > 200) throw new Error("EPOCHS");
+  if (!Number.isFinite(p.batchSize) || !Number.isInteger(p.batchSize)) throw new Error("BATCH");
   if (p.batchSize < 1 || p.batchSize > 128) throw new Error("BATCH");
+  if (!Number.isFinite(p.earlyStopPatience) || !Number.isInteger(p.earlyStopPatience)) {
+    throw new Error("EARLY_STOP_PATIENCE");
+  }
+  if (!Number.isFinite(p.valFraction) || p.valFraction <= 0 || p.valFraction >= 1) {
+    throw new Error("VAL_FRACTION");
+  }
+  if (!Number.isFinite(p.gradClip) || p.gradClip <= 0) throw new Error("GRAD_CLIP");
+  if (!Number.isFinite(p.weightDecay) || p.weightDecay < 0) throw new Error("WEIGHT_DECAY");
   if (!(p.lr > 0) || p.lr > 1) throw new Error("LR");
   if (p.dataset !== "synthetic_planted" && p.dataset !== "development_f0") {
     throw new Error("DATASET");

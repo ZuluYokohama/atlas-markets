@@ -166,9 +166,9 @@ export class EssnNet {
   snapshot(): { hash: string; params: number } {
     const blob = {
       genome: this.genome,
-      towers: this.towers.map((t) => t.layer.W),
-      fusion: this.fusion.W,
-      head: this.head.W,
+      towers: this.towers.map((t) => ({ W: t.layer.W, b: t.layer.b })),
+      fusion: { W: this.fusion.W, b: this.fusion.b },
+      head: { W: this.head.W, b: this.head.b },
     };
     return { hash: contentHash(blob), params: this.paramCount() };
   }
