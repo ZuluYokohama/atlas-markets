@@ -59,6 +59,16 @@ Every computed object must eventually carry:
 
 **Current prototype gap:** bars are generated as a closed array; there is no event log; scalers and kNN graphs see the full sample; default query sits in the confirmation block. These are **known violations**, not accepted behavior.
 
+**Addendum 2026-08-16 (Stages 2–13, historical correction).** The paragraph above is the Stage 0 finding. It is **not** the current system:
+
+- Event log, watermarks, and live/replay hash identity exist (Stage 2, E5).
+- Feature DAG and workstation frames are built with `availability_time` / eligible past only (Stages 4, 6, 10).
+- Confirmation 315–519 is closed. Opening it is a protocol violation.
+- E3 recorded `CERTIFIED_PIT_REPRESENTATION`. Outcome shuffle does not change the connection hash.
+- Remaining limitation: inductive connection extension is Nyström-nearest, not a sheaf pushforward. Universe is synthetic.
+
+Do not cite the Stage 0 gap paragraph as if it still describes `src/lib/atlas/`.
+
 Live and replay must share one pipeline and differ only by clock. Any live/replay divergence is a **hard stop** for downstream modeling (Stage 2).
 
 ## 5. Synthetic data boundary
