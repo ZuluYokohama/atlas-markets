@@ -14,6 +14,7 @@ import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as GatesRouteImport } from './routes/gates'
 import { Route as GeometryRouteImport } from './routes/geometry'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as RuntimeRouteImport } from './routes/runtime'
 import { Route as StrategyRouteImport } from './routes/strategy'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
@@ -42,6 +43,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RuntimeRoute = RuntimeRouteImport.update({
+  id: '/runtime',
+  path: '/runtime',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StrategyRoute = StrategyRouteImport.update({
   id: '/strategy',
   path: '/strategy',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/gates': typeof GatesRoute
   '/geometry': typeof GeometryRoute
   '/login': typeof LoginRoute
+  '/runtime': typeof RuntimeRoute
   '/strategy': typeof StrategyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/gates': typeof GatesRoute
   '/geometry': typeof GeometryRoute
   '/login': typeof LoginRoute
+  '/runtime': typeof RuntimeRoute
   '/strategy': typeof StrategyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/gates': typeof GatesRoute
   '/geometry': typeof GeometryRoute
   '/login': typeof LoginRoute
+  '/runtime': typeof RuntimeRoute
   '/strategy': typeof StrategyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/gates'
     | '/geometry'
     | '/login'
+    | '/runtime'
     | '/strategy'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/gates'
     | '/geometry'
     | '/login'
+    | '/runtime'
     | '/strategy'
     | '/api/auth/$'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/gates'
     | '/geometry'
     | '/login'
+    | '/runtime'
     | '/strategy'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   GatesRoute: typeof GatesRoute
   GeometryRoute: typeof GeometryRoute
   LoginRoute: typeof LoginRoute
+  RuntimeRoute: typeof RuntimeRoute
   StrategyRoute: typeof StrategyRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/runtime': {
+      id: '/runtime'
+      path: '/runtime'
+      fullPath: '/runtime'
+      preLoaderRoute: typeof RuntimeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/strategy': {
       id: '/strategy'
       path: '/strategy'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   GatesRoute: GatesRoute,
   GeometryRoute: GeometryRoute,
   LoginRoute: LoginRoute,
+  RuntimeRoute: RuntimeRoute,
   StrategyRoute: StrategyRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
