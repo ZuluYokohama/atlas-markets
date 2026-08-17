@@ -18,6 +18,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as RuntimeRouteImport } from './routes/runtime'
 import { Route as StrategyRouteImport } from './routes/strategy'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ApiEssnTrainRouteImport } from './routes/api/essn/train'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -64,6 +65,11 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiEssnTrainRoute = ApiEssnTrainRouteImport.update({
+  id: '/api/essn/train',
+  path: '/api/essn/train',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -75,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/runtime': typeof RuntimeRoute
   '/strategy': typeof StrategyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/essn/train': typeof ApiEssnTrainRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -86,6 +93,7 @@ export interface FileRoutesByTo {
   '/runtime': typeof RuntimeRoute
   '/strategy': typeof StrategyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/essn/train': typeof ApiEssnTrainRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -98,6 +106,7 @@ export interface FileRoutesById {
   '/runtime': typeof RuntimeRoute
   '/strategy': typeof StrategyRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/api/essn/train': typeof ApiEssnTrainRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -111,6 +120,7 @@ export interface FileRouteTypes {
     | '/runtime'
     | '/strategy'
     | '/api/auth/$'
+    | '/api/essn/train'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -122,6 +132,7 @@ export interface FileRouteTypes {
     | '/runtime'
     | '/strategy'
     | '/api/auth/$'
+    | '/api/essn/train'
   id:
     | '__root__'
     | '/'
@@ -133,6 +144,7 @@ export interface FileRouteTypes {
     | '/runtime'
     | '/strategy'
     | '/api/auth/$'
+    | '/api/essn/train'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -145,6 +157,7 @@ export interface RootRouteChildren {
   RuntimeRoute: typeof RuntimeRoute
   StrategyRoute: typeof StrategyRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  ApiEssnTrainRoute: typeof ApiEssnTrainRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -212,6 +225,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/essn/train': {
+      id: '/api/essn/train'
+      path: '/api/essn/train'
+      fullPath: '/api/essn/train'
+      preLoaderRoute: typeof ApiEssnTrainRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -225,6 +245,7 @@ const rootRouteChildren: RootRouteChildren = {
   RuntimeRoute: RuntimeRoute,
   StrategyRoute: StrategyRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
+  ApiEssnTrainRoute: ApiEssnTrainRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
