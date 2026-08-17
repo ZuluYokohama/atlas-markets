@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EssnRouteImport } from './routes/essn'
 import { Route as EvidenceRouteImport } from './routes/evidence'
 import { Route as GatesRouteImport } from './routes/gates'
 import { Route as GeometryRouteImport } from './routes/geometry'
@@ -21,6 +22,11 @@ import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EssnRoute = EssnRouteImport.update({
+  id: '/essn',
+  path: '/essn',
   getParentRoute: () => rootRouteImport,
 } as any)
 const EvidenceRoute = EvidenceRouteImport.update({
@@ -61,6 +67,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/essn': typeof EssnRoute
   '/evidence': typeof EvidenceRoute
   '/gates': typeof GatesRoute
   '/geometry': typeof GeometryRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/essn': typeof EssnRoute
   '/evidence': typeof EvidenceRoute
   '/gates': typeof GatesRoute
   '/geometry': typeof GeometryRoute
@@ -82,6 +90,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/essn': typeof EssnRoute
   '/evidence': typeof EvidenceRoute
   '/gates': typeof GatesRoute
   '/geometry': typeof GeometryRoute
@@ -94,6 +103,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/essn'
     | '/evidence'
     | '/gates'
     | '/geometry'
@@ -104,6 +114,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/essn'
     | '/evidence'
     | '/gates'
     | '/geometry'
@@ -114,6 +125,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/essn'
     | '/evidence'
     | '/gates'
     | '/geometry'
@@ -125,6 +137,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  EssnRoute: typeof EssnRoute
   EvidenceRoute: typeof EvidenceRoute
   GatesRoute: typeof GatesRoute
   GeometryRoute: typeof GeometryRoute
@@ -141,6 +154,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/essn': {
+      id: '/essn'
+      path: '/essn'
+      fullPath: '/essn'
+      preLoaderRoute: typeof EssnRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/evidence': {
@@ -197,6 +217,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  EssnRoute: EssnRoute,
   EvidenceRoute: EvidenceRoute,
   GatesRoute: GatesRoute,
   GeometryRoute: GeometryRoute,
